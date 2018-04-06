@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			ol{
+				list-style: none;
+				padding: 0;margin: 0;
+				font-size: 24px;
+				color: #FFFFFF;
+			}
+			.box{
+				display: block;
+				width: 300px;
+				height: auto;
+				background-color: lightgray;
+				border-radius: 15px;
+				padding: 40px 20px;
+				box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+				border: solid #666;
+			}
+			.c_input{
+				width: 100%;
+				border: hidden;
+				border-radius: 5px;
+				box-shadow: 2px 3px 2px rgba(0,0,0,0.2) inset;
+				padding:5px;
+				box-sizing: border-box;
+			}
+			#input{
+				width: 100%;
+				font-size: 2em; 
+				border-radius: 5px;
+				border: solid #666;
+				box-sizing: border-box;
+				text-align: right;
+			}
+			.btn{
+				display: inline-block;
+				width: 70px;
+				height: 40px;
+				line-height: 40px;
+				margin: 3px 10px;
+				text-align: center;
+				box-shadow: 1px 2px 2px rgba(0,0,0,0.8);
+				border-radius: 5px;
+				background-color: grey;
+				cursor: pointer;
+			}
+			.c_fun{
+				font-size: 24px;
+				color: #fff;
+				font-weight: bold;
+			}
+			.equal{
+				background: lightsalmon;
+				width: 160px;
+				color: white;
+				font-size: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+		<div class="c_input"><input type="text" name="input" id="input" value="" /></div><br />
+		<div class="c_fun">
+			<div class="btn plus" data-c='+'>+</div>
+			<div class="btn minus" data-c='-'>-</div>
+			<div class="btn cheng" data-c='*'>*</div>
+			<div class="btn chu" data-c='/'>/</div>
+			<div class="btn clean">C</div>
+			<div class="btn del">del</div>
+		</div><br />
+		<div class="c_num">
+			<ol>
+				<li class="btn" data-c='1'>1</li>
+				<li class="btn" data-c='2'>2</li>
+				<li class="btn" data-c='3'>3</li>
+				<li class="btn" data-c='4'>4</li>
+				<li class="btn" data-c='5'>5</li>
+				<li class="btn" data-c='6'>6</li>
+				<li class="btn" data-c='7'>7</li>
+				<li class="btn" data-c='8'>8</li>
+				<li class="btn" data-c='9'>9</li>
+				<li class="btn" data-c='0'>0</li>
+				<li class="btn equal">=</li>
+			</ol>
+		</div>
+		
+		</div>
+		
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var str='';
+				$('#input').val(str);
+				$('.btn').mousedown(function(){
+					$(this).css('box-shadow','0px 0px 0px rgba(0,0,0,0)');
+				});
+				$('.btn').mouseup(function(){
+					$(this).css('box-shadow','1px 2px 2px rgba(0,0,0,0.8)');
+				})
+				
+				$('.btn').click(function(){
+					
+						if ($(this).data('c')!=null){
+							str += $(this).data('c');
+							$('#input').val(str);
+						}
+						else if($(this).hasClass('clean')){
+							str = '';
+							$('#input').val(str);
+						}
+						else if($(this).hasClass('del')){
+							l = str.length-1;
+							str = str.substr(0,l);
+							$('#input').val(str);
+						}
+						else if($(this).hasClass('equal')){
+							try{
+								$('#input').val(eval(str));
+								str = $('#input').val();
+							}catch(e){
+								//TODO handle the exception
+								$('#input').val('wrong');
+								str = '';
+							}
+							
+						}
+					
+				})
+			})
+		</script>
+	</body>
+</html>
